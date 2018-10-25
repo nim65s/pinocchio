@@ -317,7 +317,7 @@ namespace se3
   SE3Tpl<typename Vector6Like::Scalar, Eigen::internal::traits<Vector6Like>::Options>
   exp6(const Eigen::MatrixBase<Vector6Like> & v)
   {
-    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (D, 6, 1);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Vector6Like, 6, 1);
 
     MotionRef<Vector6Like> nu(v);
     return exp6(nu);

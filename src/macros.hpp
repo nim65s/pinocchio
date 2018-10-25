@@ -59,7 +59,7 @@ Eigen::internal::scalar_product_traits<typename Eigen::internal::traits< D1 >::S
 #endif
 
 /// Ensure that a matrix (or vector) is of correct size (compile-time and run-time assertion)
-#define PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE(type,rows,cols)                  \
+#define PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE(type,nrows,ncols)                  \
   EIGEN_STATIC_ASSERT(   (type::RowsAtCompileTime == Eigen::Dynamic || type::RowsAtCompileTime == nrows) \
                       && (type::ColsAtCompileTime == Eigen::Dynamic || type::ColsAtCompileTime == ncols),\
                       THIS_METHOD_IS_ONLY_FOR_MATRICES_OF_A_SPECIFIC_SIZE);    \
@@ -80,4 +80,3 @@ namespace se3
 #endif
 
 #endif // ifndef __se3_macros_hpp__
-
