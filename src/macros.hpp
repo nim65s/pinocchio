@@ -58,6 +58,13 @@ Eigen::ScalarBinaryOpTraits< typename Eigen::internal::traits< D1 >::Scalar, typ
 Eigen::internal::scalar_product_traits<typename Eigen::internal::traits< D1 >::Scalar,typename Eigen::internal::traits< D2 >::Scalar>::ReturnType
 #endif
 
+/// Ensure that a matrix (or vector) is of correct size (compile-time and run-time assertion)
+#define PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE(type,rows,cols)                  \
+  EIGEN_STATIC_ASSERT(   (type::RowsAtCompileTime == Eigen::Dynamic || type::RowsAtCompileTime == nrows) \
+                      && (type::ColsAtCompileTime == Eigen::Dynamic || type::ColsAtCompileTime == ncols),\
+                      THIS_METHOD_IS_ONLY_FOR_MATRICES_OF_A_SPECIFIC_SIZE);    \
+  assert(R.rows()==nrows && R.cols()==ncols);
+
 /// \brief Fix issue concerning 3.2.90 and more versions of Eigen that do not define size_of_xpr_at_compile_time structure.
 #if EIGEN_VERSION_AT_LEAST(3,2,90) && !EIGEN_VERSION_AT_LEAST(3,3,0)
 namespace se3

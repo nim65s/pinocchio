@@ -42,9 +42,8 @@ namespace se3
   typename Eigen::Matrix<typename Vector3Like::Scalar,3,3,EIGEN_PLAIN_TYPE(Vector3Like)::Options>
   exp3(const Eigen::MatrixBase<Vector3Like> & v)
   {
-    EIGEN_STATIC_ASSERT_VECTOR_ONLY(Vector3Like);
-    assert(v.size() == 3);
-    
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Vector3Like, 3, 1);
+
     typedef typename Vector3Like::Scalar Scalar;
     typedef typename EIGEN_PLAIN_TYPE(Vector3Like) Vector3LikePlain;
     typedef Eigen::Matrix<Scalar,3,3,Vector3LikePlain::Options> Matrix3;
@@ -90,7 +89,8 @@ namespace se3
   Eigen::Matrix<typename Matrix3Like::Scalar,3,1,Eigen::internal::traits<Matrix3Like>::Options>
   log3(const Eigen::MatrixBase<Matrix3Like> & R, S2 & theta)
   {
-    EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE(Matrix3Like,3,3);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix3Like, 3, 3);
+
     typedef typename Matrix3Like::Scalar Scalar;
     typedef Eigen::Matrix<Scalar,3,1,Eigen::internal::traits<Matrix3Like>::Options> Vector3;
 
@@ -140,6 +140,8 @@ namespace se3
   Eigen::Matrix<typename Matrix3Like::Scalar,3,1,Eigen::internal::traits<Matrix3Like>::Options>
   log3(const Eigen::MatrixBase<Matrix3Like> & R)
   {
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix3Like, 3, 3);
+
     typename Matrix3Like::Scalar theta;
     return log3(R.derived(), theta);
   }
@@ -154,6 +156,9 @@ namespace se3
   void Jexp3(const Eigen::MatrixBase<Vector3Like> & r,
              const Eigen::MatrixBase<Matrix3Like> & Jexp)
   {
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Vector3Like, 3, 1);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix3Like, 3, 3);
+
     Matrix3Like & Jout = const_cast<Matrix3Like &>(Jexp.derived());
     typedef typename Matrix3Like::Scalar Scalar;
 
@@ -191,6 +196,9 @@ namespace se3
              const Eigen::MatrixBase<Vector3Like> & log,
              const Eigen::MatrixBase<Matrix3Like> & Jlog)
   {
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Vector3Like, 3, 1);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix3Like, 3, 3);
+
     Matrix3Like & Jout = const_cast<Matrix3Like &>(Jlog.derived());
     typedef typename Matrix3Like::Scalar Scalar3;
     
@@ -220,6 +228,9 @@ namespace se3
   void Jlog3(const Eigen::MatrixBase<Matrix3Like1> & R,
              const Eigen::MatrixBase<Matrix3Like2> & Jlog)
   {
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix3Like1, 3, 3);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix3Like1, 3, 3);
+
     typedef typename Matrix3Like1::Scalar Scalar;
     typedef Eigen::Matrix<Scalar,3,1,Eigen::internal::traits<Matrix3Like1>::Options> Vector3;
 
@@ -306,7 +317,8 @@ namespace se3
   SE3Tpl<typename Vector6Like::Scalar, Eigen::internal::traits<Vector6Like>::Options>
   exp6(const Eigen::MatrixBase<Vector6Like> & v)
   {
-    EIGEN_STATIC_ASSERT_VECTOR_SPECIFIC_SIZE(Vector6Like,6);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (D, 6, 1);
+
     MotionRef<Vector6Like> nu(v);
     return exp6(nu);
   }
@@ -361,7 +373,8 @@ namespace se3
   MotionTpl<typename D::Scalar,Eigen::internal::traits<D>::Options>
   log6(const Eigen::MatrixBase<D> & M)
   {
-    EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE(D, 4, 4);
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (D, 4, 4);
+
     typedef typename SE3Tpl<typename D::Scalar,D::Options>::Vector3 Vector3;
     typedef typename SE3Tpl<typename D::Scalar,D::Options>::Matrix3 Matrix3;
 
@@ -377,10 +390,11 @@ namespace se3
   void Jexp6(const MotionDense<MotionDerived>     & nu,
              const Eigen::MatrixBase<Matrix6Like> & Jexp)
   {
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix6Like, 6, 6);
+
     typedef typename MotionDerived::Scalar Scalar;
     typedef typename MotionDerived::Vector3 Vector3;
     typedef Eigen::Matrix<Scalar, 3, 3, Vector3::Options> Matrix3;
-    EIGEN_STATIC_ASSERT_MATRIX_SPECIFIC_SIZE(Matrix6Like,6,6);
     Matrix6Like & Jout = const_cast<Matrix6Like &> (Jexp.derived());
 
     const typename MotionDerived::ConstLinearType  & v = nu.linear();
@@ -443,6 +457,8 @@ namespace se3
   void Jlog6(const SE3Tpl<Scalar, Options> & M,
              const Eigen::MatrixBase<Matrix6Like> & Jlog)
   {
+    PINOCCHIO_ASSERT_MATRIX_SPECIFIC_SIZE (Matrix6Like, 6, 6);
+
     typedef SE3Tpl<Scalar,Options> SE3;
     typedef typename SE3::Vector3 Vector3;
     typedef typename SE3::Matrix3 Matrix3;
