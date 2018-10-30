@@ -19,6 +19,7 @@ cache:
     - git pull
     - cd pinocchio
     - make checkout MASTER_REPOSITORY="dir ${CI_PROJECT_DIR}"
+    - export GIT_DIR=${CI_PROJECT_DIR}/.git
     - make install
     - cd work.$(hostname)/$(make show-var VARNAME=DISTNAME)
     - make test
@@ -47,6 +48,7 @@ robotpkg-pinocchio-18.04-release:
     - cd ..
     - cd py-pinocchio
     - make checkout MASTER_REPOSITORY="dir ${CI_PROJECT_DIR}"
+    - export GIT_DIR=${CI_PROJECT_DIR}/.git
     - make install
     - cd work.$(hostname)/$(make show-var VARNAME=DISTNAME)
     - make test
