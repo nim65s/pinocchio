@@ -11,14 +11,14 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/utility/binary.hpp>
 
-namespace 
+namespace
 {
   template <typename Scalar>
   Scalar sinCosTolerance();
 
   template<> inline float sinCosTolerance<float>()
   {
-    return 1e-7f;
+    return 1.5e-7f;
   }
 
   template<> inline double sinCosTolerance<double>()
@@ -41,7 +41,7 @@ void testSINCOS(int n)
     Scalar sin_value, cos_value;
     Scalar alpha = (Scalar)std::rand()/(Scalar)RAND_MAX;
     pinocchio::SINCOS(alpha,&sin_value,&cos_value);
-    
+
     Scalar sin_value_ref = std::sin(alpha),
            cos_value_ref = std::cos(alpha);
 
