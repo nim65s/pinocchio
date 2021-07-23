@@ -18,13 +18,13 @@ jobs:
 
     - run: |
         PY_MIN=$(python3 -V 2>&1 | cut -d. -f2)
-        echo "/opt/openrobots/lib/python3.$PY_MIN/site-packages" >> /usr/lib/python3/dist-packages/robotpkg.pth
+        sudo sh -c "echo '/opt/openrobots/lib/python3.$PY_MIN/site-packages' >> /usr/lib/python3/dist-packages/robotpkg.pth"
         DEB="deb [arch=amd64] http://robotpkg.openrobots.org"
-        echo "$DEB/wip/packages/debian/pub $(lsb_release -cs) robotpkg" >> /etc/apt/sources.list
-        echo "$DEB/packages/debian/pub $(lsb_release -cs) robotpkg" >> /etc/apt/sources.list
-        apt-key adv --fetch-keys http://robotpkg.openrobots.org/packages/debian/robotpkg.key
-        apt-get update -qq
-        apt-get install -qqy clang cmake lib{urdfdom,tinyxml}-dev robotpkg-py3$PY_MIN-{casadi,hpp-fcl}
+        sudo sh -c "echo '$DEB/wip/packages/debian/pub $(lsb_release -cs) robotpkg' >> /etc/apt/sources.list"
+        sudo sh -c "echo '$DEB/packages/debian/pub $(lsb_release -cs) robotpkg' >> /etc/apt/sources.list"
+        sudo apt-key adv --fetch-keys http://robotpkg.openrobots.org/packages/debian/robotpkg.key
+        sudo apt-get update -qq
+        sudo apt-get install -qqy clang cmake lib{urdfdom,tinyxml}-dev robotpkg-py3$PY_MIN-{casadi,hpp-fcl}
 
     - run: |
         rm -rf build
@@ -36,4 +36,4 @@ jobs:
         make build_tests
         ctest -VV -R test-cpp-casadi-aba-derivatives
         make test
-        make install
+        sudo make install
