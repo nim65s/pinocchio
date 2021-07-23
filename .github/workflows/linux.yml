@@ -3,11 +3,8 @@ name: Test Pinocchio on Linux
 on: [push,pull_request]
 
 env:
-  CC: clang
-  CXX: clang++
   CMAKE_PREFIX_PATH: /opt/openrobots
   CTEST_OUTPUT_ON_FAILURE: 1
-  CTEST_PARALLEL_LEVEL: 32
 
 jobs:
   build:
@@ -35,8 +32,8 @@ jobs:
         cd build
         cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_WITH_COLLISION_SUPPORT=ON -DBUILD_ADVANCED_TESTING=ON \
               -DBUILD_WITH_CASADI_SUPPORT=ON -DPYTHON_EXECUTABLE=$(which python3) -DBUILD_WITH_OPENMP_SUPPORT=ON ..
-        make -sj32
-        make -sj32 build_tests
+        make
+        make build_tests
         ctest -VV -R test-cpp-casadi-aba-derivatives
         make test
         make install
