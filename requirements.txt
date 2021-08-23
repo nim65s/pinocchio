@@ -1,0 +1,2 @@
+# Install pinocchio for binder
+pin==2.6.3

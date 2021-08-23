@@ -9,6 +9,7 @@
   <a href="https://anaconda.org/conda-forge/pinocchio"><img src="https://img.shields.io/conda/dn/conda-forge/pinocchio.svg" alt="Conda Downloads"/></a>
   <a href="https://anaconda.org/conda-forge/pinocchio"><img src="https://img.shields.io/conda/vn/conda-forge/pinocchio.svg" alt="Conda Version"/></a>
   <a href="https://conda.anaconda.org/conda-forge"><img src="https://anaconda.org/conda-forge/pinocchio/badges/installer/conda.svg" alt="Anaconda-Server Badge"/></a>
+  <a href="https://mybinder.org/badge_logo.svg"><img src="https://mybinder.org/v2/gh/stack-of-tasks/pinocchio/devel" alt="Binder"/></a>
 </p>
 
 <!--Pinocchio: a C++ library for efficient Rigid Multi-body Dynamics computations
