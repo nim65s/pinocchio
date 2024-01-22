@@ -1,6 +1,13 @@
+import sys
 import unittest
 from math import pi
+from pathlib import Path
 from random import random
+
+print("sys.path", sys.path)
+path = Path("/opt/ros/noetic/lib/python3.8/dist-packages")
+print(path)
+print(list(path.glob("*")))
 
 import numpy as np
 import pinocchio as pin
