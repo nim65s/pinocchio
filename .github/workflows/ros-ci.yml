@@ -26,6 +26,7 @@ jobs:
       AFTER_RUN_TARGET_TEST: 'ici_with_unset_variables source /root/target_ws/install/setup.bash && cd /root/target_ws/build/pinocchio && make test'
       IMMEDIATE_TEST_OUTPUT: 1
       CTEST_OUTPUT_ON_FAILURE: 1
+      VERBOSE_TESTS: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
