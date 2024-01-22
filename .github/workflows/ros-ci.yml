@@ -23,10 +23,7 @@ jobs:
       # The work-around is thus to use catkin_tools for building and sourcing, and to manually specify execution of the test
       # target after completion of the regular test target. The output of this step does affect the output of the CI process.
       # Note, this does not affect projects that do not have pure CMake projects in their upstream_ws.
-      AFTER_RUN_TARGET_TEST: 'ici_with_unset_variables source /root/target_ws/install/setup.bash && cd /root/target_ws/build/pinocchio && make test'
-      IMMEDIATE_TEST_OUTPUT: 1
-      CTEST_OUTPUT_ON_FAILURE: 1
-      VERBOSE_TESTS: true
+      AFTER_RUN_TARGET_TEST: 'ici_with_unset_variables source /root/target_ws/install/setup.bash && cd /root/target_ws/build/pinocchio && ctest --output-on-failure'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
