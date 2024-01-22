@@ -5,7 +5,7 @@ from pathlib import Path
 from random import random
 
 print("sys.path", sys.path)
-path = Path("/opt/ros/noetic/lib/python3.8/dist-packages")
+path = Path("/opt/ros/noetic/lib/python3/dist-packages")
 print(path)
 print(list(path.glob("*")))
 
