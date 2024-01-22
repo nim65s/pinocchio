@@ -165,6 +165,9 @@ ELSE()
   CHECK_MINIMAL_CXX_STANDARD(14 ENFORCE)
 ENDIF()
 
+ADD_PROJECT_DEPENDENCY(eigenpy 2.7.10 REQUIRED)
+message(FATAL_ERROR "coucou")
+
 IF(BUILD_PYTHON_INTERFACE)
   MESSAGE(STATUS "The Python bindings of Pinocchio will be compiled along the main library. If you want to disable this feature, please set the option BUILD_PYTHON_INTERFACE to OFF.")
 
@@ -173,7 +176,6 @@ IF(BUILD_PYTHON_INTERFACE)
     set(PYTHON_COMPONENTS ${PYTHON_COMPONENTS} Development)
   ENDIF()
 
-  ADD_PROJECT_DEPENDENCY(eigenpy 2.7.10 REQUIRED)
 
   IF(BUILD_WITH_LIBPYTHON)
     # Check wether this a PyPy Python
