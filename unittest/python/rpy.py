@@ -10,7 +10,7 @@ path = Path("/opt/ros/noetic/lib/python3/dist-packages")
 print(path)
 print(list(path.glob("*")))
 
-print(check_output("find -name eigenpy /opt/ros/noetic".split()))
+print(check_output("find /opt/ros/noetic -name eigenpy".split()))
 
 import numpy as np
 import pinocchio as pin
