@@ -166,7 +166,7 @@ ELSE()
 ENDIF()
 
 ADD_PROJECT_DEPENDENCY(eigenpy 2.7.10 REQUIRED)
-message(FATAL_ERROR "coucou ${eigenpy_PREFIX}")
+message(FATAL_ERROR "coucou ${eigenpy_INCLUDE_DIRS}")
 
 IF(BUILD_PYTHON_INTERFACE)
   MESSAGE(STATUS "The Python bindings of Pinocchio will be compiled along the main library. If you want to disable this feature, please set the option BUILD_PYTHON_INTERFACE to OFF.")
