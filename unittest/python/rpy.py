@@ -3,11 +3,14 @@ import unittest
 from math import pi
 from pathlib import Path
 from random import random
+from subprocess import check_output
 
 print("sys.path", sys.path)
 path = Path("/opt/ros/noetic/lib/python3/dist-packages")
 print(path)
 print(list(path.glob("*")))
+
+print(check_output("find -name eigenpy /opt/ros/noetic".split()))
 
 import numpy as np
 import pinocchio as pin
