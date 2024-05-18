@@ -343,6 +343,10 @@ endif()
 if(BUILD_WITH_EXTRA_SUPPORT)
   target_link_libraries(${PROJECT_NAME} INTERFACE ${PROJECT_NAME}_extra)
 endif()
+if(PINOCCHIO_ENABLE_COMPATIBILITY_WITH_VERSION_2)
+  target_compile_definitions(${PROJECT_NAME}
+                             INTERFACE PINOCCHIO_ENABLE_COMPATIBILITY_WITH_VERSION_2)
+endif()
 
 install(
   TARGETS ${PROJECT_NAME}
