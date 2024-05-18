@@ -26,8 +26,9 @@ prepend_path_from_list(${PROJECT_NAME}_EXTRA_PUBLIC_HEADERS "../"
                        ${PROJECT_NAME}_EXTRA_PUBLIC_HEADERS)
 
 # Create header-only target All other target will depend on it
-add_library(${PROJECT_NAME}_headers INTERFACE ${${PROJECT_NAME}_CORE_PUBLIC_HEADERS}
-            ${${PROJECT_NAME}_CORE_GENERATED_PUBLIC_HEADERS})
+add_library(${PROJECT_NAME}_headers STATIC ${${PROJECT_NAME}_CORE_PUBLIC_HEADERS}
+                                           ${${PROJECT_NAME}_CORE_GENERATED_PUBLIC_HEADERS})
+set_target_properties(${PROJECT_NAME}_headers PROPERTIES LINKER_LANGUAGE CXX)
 
 # Enforce the preprocessed version of boost::list and boost::vector This information is redundant
 # with the content of include/pinocchio/container/boost-container-limits.hpp but it avoids any
