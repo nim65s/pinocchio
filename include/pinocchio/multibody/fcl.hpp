@@ -10,6 +10,10 @@
 #include "pinocchio/multibody/model-item.hpp"
 #include "pinocchio/container/aligned-vector.hpp"
 
+#if defined(PINOCCHIO_WITH_HPP_FCL) && defined(PINOCCHIO_ENABLE_COMPATIBILITY_WITH_VERSION_2)
+  #include "pinocchio/collision/distance.hpp"
+#endif
+
 #ifdef PINOCCHIO_WITH_HPP_FCL
 
   #if (WIN32)
