@@ -198,12 +198,12 @@ namespace pinocchio
           if (is_capsule)
           {
             meshPath = "CAPSULE";
-            geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Capsule(radius, length));
+            geometry = std::make_shared<fcl::Capsule>(radius, length);
           }
           else
           {
             meshPath = "CYLINDER";
-            geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Cylinder(radius, length));
+            geometry = std::make_shared<fcl::Cylinder>(radius, length);
           }
         }
         // Handle the case where collision geometry is a box.
@@ -218,7 +218,7 @@ namespace pinocchio
           double y = collisionGeometry->dim.y;
           double z = collisionGeometry->dim.z;
 
-          geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Box(x, y, z));
+          geometry = std::make_shared<fcl::Box>(x, y, z);
         }
         // Handle the case where collision geometry is a sphere.
         else if (urdf_geometry->type == ::urdf::Geometry::SPHERE)
@@ -230,7 +230,7 @@ namespace pinocchio
 
           double radius = collisionGeometry->radius;
 
-          geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Sphere(radius));
+          geometry = std::make_shared<fcl::Sphere>(radius);
         }
         else
           throw std::invalid_argument("Unknown geometry type :");
@@ -414,7 +414,7 @@ namespace pinocchio
               retrieveMeshScale(urdf_mesh, meshScale);
             }
 
-            const std::shared_ptr<fcl::CollisionGeometry> geometry(new fcl::CollisionGeometry());
+            const std::shared_ptr<fcl::CollisionGeometry> geometry;
 #endif // PINOCCHIO_WITH_HPP_FCL
 
             Eigen::Vector4d meshColor;
@@ -510,7 +510,7 @@ namespace pinocchio
 
 #ifdef PINOCCHIO_WITH_HPP_FCL
         if (!meshLoader)
-          meshLoader = fcl::MeshLoaderPtr(new fcl::MeshLoader);
+          meshLoader = std::make_shared<fcl::MeshLoader>();
 #endif // ifdef PINOCCHIO_WITH_HPP_FCL
 
         recursiveParseTreeForGeom(

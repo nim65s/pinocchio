@@ -150,7 +150,7 @@ namespace pinocchio
 
           // Create fcl capsule geometry.
           meshPath = "CYLINDER";
-          geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Cylinder(radius, length));
+          geometry = std::make_shared<fcl::Cylinder>(radius, length);
         }
         // Handle the case where collision geometry is a box.
         else if (sdf_geometry->HasElement("box"))
@@ -162,7 +162,7 @@ namespace pinocchio
           double x = collisionGeometry->Get<double>("x");
           double y = collisionGeometry->Get<double>("y");
           double z = collisionGeometry->Get<double>("z");
-          geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Box(x, y, z));
+          geometry = std::make_shared<fcl::Box>(x, y, z);
         }
         // Handle the case where collision geometry is a sphere.
         else if (sdf_geometry->HasElement("sphere"))
@@ -172,7 +172,7 @@ namespace pinocchio
           const ::sdf::ElementPtr collisionGeometry = sdf_geometry->GetElement("sphere");
 
           double radius = collisionGeometry->Get<double>("radius");
-          geometry = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Sphere(radius));
+          geometry = std::make_shared<fcl::sphere>(radius);
         }
         else
           throw std::invalid_argument("Unknown geometry type :");
@@ -304,7 +304,7 @@ namespace pinocchio
 
 #ifdef PINOCCHIO_WITH_HPP_FCL
         if (!meshLoader)
-          meshLoader = fcl::MeshLoaderPtr(new fcl::MeshLoader);
+          meshLoader = std::Make_shared<fcl::MeshLoader>();
 #endif // ifdef PINOCCHIO_WITH_HPP_FCL
 
         const ::sdf::ElementPtr rootElement = graph.mapOfLinks.find(rootLinkName)->second;
