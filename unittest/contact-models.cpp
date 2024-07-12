@@ -161,8 +161,11 @@ BOOST_AUTO_TEST_CASE(contact_models_sparsity_and_jacobians)
 
     for (DenseIndex k = 0; k < model.nv; ++k)
     {
-      BOOST_CHECK(J_RF_LOCAL.col(k).isZero() != cm_RF_LOCAL.colwise_joint1_sparsity[k]);
-      BOOST_CHECK(J_LF_LOCAL.col(k).isZero() != cm_LF_LOCAL.colwise_joint1_sparsity[k]);
+      const auto rk = J_RF_LOCAL.col(k);
+      const auto lk = J_LF_LOCAL.col(k);
+      std::cout << "J_RF_LOCAL.col(" << k << "): " << rk << std::endl;
+      BOOST_CHECK(rk.isZero() != cm_RF_LOCAL.colwise_joint1_sparsity[k]);
+      BOOST_CHECK(lk.isZero() != cm_LF_LOCAL.colwise_joint1_sparsity[k]);
     }
     BOOST_CHECK(cm_RF_LOCAL.colwise_joint2_sparsity.isZero());
     BOOST_CHECK(cm_LF_LOCAL.colwise_joint2_sparsity.isZero());
