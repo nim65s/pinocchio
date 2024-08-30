@@ -411,16 +411,16 @@ class RobotWrapper(object):
 
     def initViewer(self, share_data=True, *args, **kwargs):
         """Init the viewer"""
-        # Set viewer to use to MeshCat.
+        # Set viewer to use to gepetto-gui.
         if self.viz is None:
-            from .visualize import MeshcatVisualizer
+            from .visualize import GepettoVisualizer
 
             data, collision_data, visual_data = None, None, None
             if share_data:
                 data = self.data
                 collision_data = self.collision_data
                 visual_data = self.visual_data
-            self.viz = MeshcatVisualizer(
+            self.viz = GepettoVisualizer(
                 self.model,
                 self.collision_model,
                 self.visual_model,
@@ -433,7 +433,7 @@ class RobotWrapper(object):
         self.viz.initViewer(*args, **kwargs)
 
     def loadViewerModel(self, *args, **kwargs):
-        """Create the scene displaying the robot meshes in MeshCat"""
+        """Create the scene displaying the robot meshes in gepetto-viewer"""
         self.viz.loadViewerModel(*args, **kwargs)
 
     def display(self, q):
