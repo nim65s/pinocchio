@@ -97,9 +97,7 @@ function(PINOCCHIO_TARGET target_name)
       ${LIB_NAME}
       PROPERTIES LINKER_LANGUAGE CXX
                  INSTALL_RPATH "\$ORIGIN"
-                 VERSION ${PROJECT_VERSION}
-                 CXX_VISIBILITY_PRESET hidden
-                 VISIBILITY_INLINES_HIDDEN ON)
+                 VERSION ${PROJECT_VERSION})
   endif()
 
   if(ENABLE_TEMPLATE_INSTANTIATION AND NOT ARGS_INTERFACE)
