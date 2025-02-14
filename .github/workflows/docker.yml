@@ -1,0 +1,24 @@
+name: Build a docker image
+
+on:
+  push:
+    tags:
+      - "v*"
+    branches:
+      - docker
+
+jobs:
+  docker-hub:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+      - run: pip install httpx
+      - run: ./.github/workflows/docker.py
+      - name: Log in to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - run: docker build -t ghcr.io/${{ github.repository }}:${{ github.ref_name }} .
+      - run: docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}

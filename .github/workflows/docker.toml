@@ -1,0 +1,46 @@
+# [jrl-cmakemodules]
+# owner = "jrl-umi3218"
+
+[eigenpy]
+owner = "stack-of-tasks"
+dependencies = ["jrl-cmakemodules"]
+
+[coal]
+owner = "coal-library"
+dependencies = ["eigenpy"]
+flags = [
+    "-DCOAL_BACKWARD_COMPATIBILITY_WITH_HPP_FCL=ON",
+    "-DCOAL_HAS_QHULL=ON",
+]
+
+[cppad]
+owner = "coin-or"
+
+[cppadcodegen]
+owner = "joaoleal"
+dependencies = ["cppad"]
+tests = false
+
+[casadi]
+owner = "casadi"
+
+[example-robot-data]
+owner = "gepetto"
+flags = ["-DBUILD_PYTHON_INTERFACE=OFF"]
+
+[pinocchio]
+owner = "stack-of-tasks"
+dependencies = [
+    # "coal",
+    # "casadi",
+    "cppadcodegen",
+    # "example-robot-data",
+]
+flags = [
+    "-DBUILD_WITH_AUTODIFF_SUPPORT=ON",
+    # "-DBUILD_WITH_CASADI_SUPPORT=ON",
+    "-DBUILD_WITH_CODEGEN_SUPPORT=ON",
+    # "-DBUILD_WITH_COLLISION_SUPPORT=ON",
+    "-DBUILD_WITH_OPENMP_SUPPORT=ON",
+]
+main = true

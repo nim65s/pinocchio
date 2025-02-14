@@ -11,3 +11,4 @@ coverage*
 # pixi environments
 .pixi
 *.egg-info
+Dockerfile
