@@ -61,5 +61,5 @@ jobs:
           key: ccache-${{ matrix.env.ROS_DISTRO }}-${{ github.sha }}
           restore-keys: ccache-${{ matrix.env.ROS_DISTRO }}-
       # Run industrial_ci
-      - uses: 'ros-industrial/industrial_ci@7083afac1ddf852a2923757a7ef588adaba841a9'
+      - uses: 'ros-industrial/industrial_ci@e91348ccb95dbd04e2acad70f80bb3975d2dad15'
         env: ${{ matrix.env }}
