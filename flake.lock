@@ -6,11 +6,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1750692767,
-        "narHash": "sha256-qOX2K98Yb5/5PP1lDF6l39HlbGOfzd2IeSZwBZ8JByc=",
+        "lastModified": 1751006818,
+        "narHash": "sha256-1C1/I0jQrlqdtHjgiZe/xKBfbRIAqf+juHISIK2dIiE=",
         "owner": "nim65s",
         "repo": "coal",
-        "rev": "cc8d89ab1313d54189d18d2122f14eda39227437",
+        "rev": "9a9f74436ca9e9584cf5001828b66502dcd45df2",
         "type": "github"
       },
       "original": {

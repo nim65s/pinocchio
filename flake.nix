@@ -24,14 +24,10 @@
             inherit system;
             overlays = [
               (final: prev: {
-                inherit (self'.packages) coal;
+                coal = inputs'.coal.packages.coal-cpp;
                 pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
                   (python-final: python-prev: {
-                    coal = python-final.toPythonModule (
-                      self'.packages.py-coal.override {
-                        python3Packages = python-final;
-                      }
-                    );
+                    coal = inputs'.coal.packages.coal-py;
                   })
                 ];
               })
@@ -41,34 +37,53 @@
             type = "app";
             program = pkgs.python3.withPackages (_: [ self'.packages.default ]);
           };
-          devShells.default =
-            with pkgs;
-            mkShell {
-              inputsFrom = [ self'.packages.pinocchio ];
-              packages =
-                let
-                  py = p: [
-                    p.coal
-                    p.boot
-                    p.eigenpy
-                    p.numpy
-                    p.scipy
-                  ];
-                in
-                [
-                  (python312.withPackages py)
-                  (python313.withPackages py)
-                ];
-            };
           packages = {
-            inherit (inputs'.coal.packages)
-              coal
-              py-coal
-              py312-coal
-              py313-coal
-              ;
             default = self'.packages.pinocchio;
-            pinocchio = pkgs.pinocchio.overrideAttrs (super: {
+            pinocchio = pkgs.python3Packages.toPythonModule (
+              pkgs.pinocchio.overrideAttrs (super: {
+                cmakeFlags = super.cmakeFlags ++ [ "-DCOAL_DISABLE_HPP_FCL_WARNINGS=ON" ];
+                src = pkgs.lib.fileset.toSource {
+                  root = ./.;
+                  fileset = pkgs.lib.fileset.unions [
+                    ./benchmark
+                    ./bindings
+                    ./CMakeLists.txt
+                    ./doc
+                    ./examples
+                    ./include
+                    ./models
+                    ./package.xml
+                    ./sources.cmake
+                    ./src
+                    ./unittest
+                    ./utils
+                  ];
+                };
+              })
+            );
+            pinocchio-cpp =
+              (self'.packages.pinocchio.override { pythonSupport = false; }).overrideAttrs
+                (super: {
+                  src = pkgs.lib.fileset.toSource {
+                    root = ./.;
+                    fileset = pkgs.lib.fileset.unions [
+                      ./benchmark
+                      # ./bindings
+                      ./CMakeLists.txt
+                      ./doc
+                      ./examples
+                      ./include
+                      ./models
+                      ./package.xml
+                      ./sources.cmake
+                      ./src
+                      ./unittest
+                      ./utils
+                    ];
+                  };
+                });
+            pinocchio-py = (self'.packages.pinocchio.override { pythonSupport = true; }).overrideAttrs (super: {
+              cmakeFlags = super.cmakeFlags ++ [ "-DBUILD_ONLY_PYTHON_INTERFACE=ON" ];
               src = pkgs.lib.fileset.toSource {
                 root = ./.;
                 fileset = pkgs.lib.fileset.unions [
@@ -81,34 +96,15 @@
                   ./models
                   ./package.xml
                   ./sources.cmake
-                  ./src
+                  # ./src
                   ./unittest
                   ./utils
                 ];
               };
-              cmakeFlags = super.cmakeFlags ++ [
-                "-DCOAL_DISABLE_HPP_FCL_WARNINGS=ON"
+              propagatedBuildInputs = super.propagatedBuildInputs ++ [
+                self'.packages.pinocchio-cpp
               ];
             });
-            py-pinocchio =
-              (self'.packages.pinocchio.override {
-                inherit (pkgs) python3Packages;
-                pythonSupport = true;
-              }).overrideAttrs
-                (super: {
-                  cmakeFlags = super.cmakeFlags ++ [
-                    "-DBUILD_ONLY_PYTHON_INTERFACE=ON"
-                  ];
-                  propagatedBuildInputs = super.propagatedBuildInputs ++ [
-                    self'.packages.pinocchio
-                  ];
-                });
-            py312-pinocchio = self'.packages.py-pinocchio.override {
-              python3Packages = pkgs.python312Packages;
-            };
-            py313-pinocchio = self'.packages.py-pinocchio.override {
-              python3Packages = pkgs.python313Packages;
-            };
           };
         };
     };
