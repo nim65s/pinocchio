@@ -7,6 +7,7 @@ jobs:
   nix:
     runs-on: "${{ matrix.os }}-latest"
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu, macos]
         extends: ["", "pkgs-full.py-pinocchio"]
