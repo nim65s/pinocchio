@@ -25,26 +25,34 @@
                 "meshcat"
                 "viser"
               ];
-              overrideAttrs.pinocchio = _: {
-                patches = [ ];
-                src = lib.fileset.toSource {
-                  root = ./.;
-                  fileset = lib.fileset.unions [
-                    ./benchmark
-                    ./bindings
-                    ./CMakeLists.txt
-                    ./doc
-                    ./examples
-                    ./include
-                    ./models
-                    ./package.xml
-                    ./sources.cmake
-                    ./src
-                    ./unittest
-                    ./utils
-                  ];
-                };
-              };
+              overrideAttrs.pinocchio =
+                final:
+                (super: {
+                  cmakeFlags =
+                    super.cmakeFlags
+                    ++ lib.optionals final.stdenv.hostPlatform.isDarwin [
+                      "-DCMAKE_EXE_LINKER_FLAGS=-Wl,-all_load"
+                      "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-all_load"
+                    ];
+                  patches = [ ];
+                  src = lib.fileset.toSource {
+                    root = ./.;
+                    fileset = lib.fileset.unions [
+                      ./benchmark
+                      ./bindings
+                      ./CMakeLists.txt
+                      ./doc
+                      ./examples
+                      ./include
+                      ./models
+                      ./package.xml
+                      ./sources.cmake
+                      ./src
+                      ./unittest
+                      ./utils
+                    ];
+                  };
+                });
               pyOverrideAttrs.pinocchio =
                 _: p:
                 (super: {
