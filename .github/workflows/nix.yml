@@ -2,8 +2,7 @@ name: "CI - Nix"
 on:
   push:
     branches:
-      - devel
-  pull_request:
+      - debug
 jobs:
   nix:
     runs-on: "${{ matrix.os }}-latest"
