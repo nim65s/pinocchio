@@ -261,7 +261,9 @@
     "nix-ros-overlay": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1775242455,
@@ -301,17 +303,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771369470,
-        "narHash": "sha256-0NBlEBKkN3lufyvFegY4TYv5mCNHbi5OmBDrzihbBMQ=",
+        "lastModified": 1765546992,
+        "narHash": "sha256-YvLPMtdwNzc5mhb0IEYTYAk+7WUCtCQPk6TFc/VrV58=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0182a361324364ae3f436a63005877674cf45efb",
+        "rev": "acb374227d9a4cd0c3eb8406a4f04eeeb4cf1a50",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "rev": "acb374227d9a4cd0c3eb8406a4f04eeeb4cf1a50",
         "type": "github"
       }
     },
@@ -421,6 +423,7 @@
           "flake-parts"
         ],
         "gepetto": "gepetto",
+        "nixpkgs": "nixpkgs",
         "systems": [
           "gepetto",
           "systems"
